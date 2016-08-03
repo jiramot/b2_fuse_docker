@@ -11,12 +11,12 @@ ENV B2_BUCKET_ID    ""
 
 
 RUN apt-get update
-RUN apt-get install -q -y python-yaml python-pip
+RUN apt-get install -q -y python-yaml python-pip wget
 RUN pip install fusepy
 
 RUN mkdir -p /opt/b2_fuse
 COPY config.yml /opt/b2_fuse/config.yml
 COPY setup.sh /opt/b2_fuse/setup.sh
 WORKDIR /opt/b2_fuse
-
-CMD ["./setup.sh"]
+ADD https://github.com/sondree/b2_fuse/archive/v1.2.tar.gz /opt/b2_fuse
+ENTRYPOINT ["./setup.sh"]
